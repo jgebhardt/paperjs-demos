@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Load the Paper.js library -->
+<script type="text/javascript" src="../lib/paper.js"></script>
+<!-- Define inlined PaperScript associate it with myCanvas -->
+<script type="text/paperscript" canvas="myCanvas">
+
+var center = new Point( 300,250);
+var ct = 2;
+var d = (2 * Math.PI / ct);
+var r = 5;
+var oldpos = new Point();
+
+function redraw(x) {
+	var b2 = d * x + (x/140);
+	var r3 = 150; 
+	var center2 = center + new Point(r3*Math.cos(b2), r3*Math.sin(b2));
+	
+
+
+	var b = d * x + (x/50);
+	var r2 = 100; 
+	var varcenter = center2 + new Point(r2*Math.cos(b), r2*Math.sin(b));
+
+	var myPath = new Path();
+	myPath.add(oldpos, varcenter);
+	oldpos = varcenter;
+	for (i = 0; i < ct; i++) {
+		
+		myPath.strokeColor = '#000';
+		var a = d * i + (x); 
+		myPath.add(varcenter, varcenter + new Point(r*Math.cos(a), r*Math.sin(a)));
+	}
+}
+
+
+
+
+function onFrame(event) {
+	redraw(event.count);
+}
+
+
+
+
+
+</script>
+</head>
+<body>
+    <canvas id="myCanvas" resize></canvas>
+</body>
+</html>
